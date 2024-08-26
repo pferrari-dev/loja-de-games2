@@ -12,12 +12,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-@Entity
+@Entity //permite mapear classes Java para tabelas em um banco de dados. 
 @Table(name = "tb_produto")
 public class Produto {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //gerencia a geração automática de chaves primárias em entidades JPA
 	private Long id;
 	
 	@NotBlank(message = "O atributo nome é Obrigatório!")
@@ -33,8 +33,8 @@ public class Produto {
 	@NotNull(message = "O atributo preço é obrigatório!")
 	private float preco;
 	
-	@ManyToOne
-	@JsonIgnoreProperties("produto")
+	@ManyToOne //A anotação @ManyToOne é essencial para modelar relacionamentos de muitos-para-um em JPA/Hibernate. Ela facilita a construção de modelos de dados complexos e permite que você defina e gerencie as associações entre entidades de maneira clara e eficiente.
+	@JsonIgnoreProperties("produto") //é uma ferramenta útil para controlar a inclusão e exclusão de propriedades durante a serialização e deserialização de JSON com Jackson.
 	private Categoria categoria;
 
 	public Long getId() {
