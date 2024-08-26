@@ -23,12 +23,12 @@ import com.generation.lojadegames.repository.CategoriaRepository;
 
 import jakarta.validation.Valid;
 
-@RestController
-@RequestMapping("/categorias")
-@CrossOrigin(origins = "*",allowedHeaders = "*")
+@RestController // Indica que a classe é um controlador, o que significa que ela pode lidar com requisições HTTP
+@RequestMapping("/categorias") //é uma ferramenta para criar rotas e manipular diferentes tipos de requisições
+@CrossOrigin(origins = "*",allowedHeaders = "*")  // O CORS é um mecanismo de segurança do navegador que restringe as requisições HTTP
 public class CategoriaController {
 
-	@Autowired
+	@Autowired // é usada para realizar a injeção de dependências automaticamente.
 	private CategoriaRepository categoriaRepository;
 	
 	@GetMapping
@@ -56,7 +56,7 @@ public class CategoriaController {
                 .body(categoriaRepository.save(categoria));
     }
 	
-	@PutMapping
+	@PutMapping // é geralmente utilizada quando você deseja criar um endpoint que atualiza um recurso existente.
     public ResponseEntity<Categoria> put(@Valid @RequestBody Categoria categoria){
         return categoriaRepository.findById(categoria.getId())
             .map(resposta -> ResponseEntity.status(HttpStatus.CREATED)
@@ -64,8 +64,8 @@ public class CategoriaController {
             .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)  //é usada para definir o código de status HTTP que deve ser retornado por um método de um controlador ou uma exceção. 
+    @DeleteMapping("/{id}") //é uma forma de mapear requisições HTTP do tipo DELETE para um método específico de um controlador.
     public void delete(@PathVariable Long id) {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
         
