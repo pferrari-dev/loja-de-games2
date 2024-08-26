@@ -24,18 +24,18 @@ import com.generation.lojadegames.repository.CategoriaRepository;
 
 import jakarta.validation.Valid;
 
-@RestController
-@RequestMapping("/produtos")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RestController //é usada para criar controladores RESTful em aplicações Spring
+@RequestMapping("/produtos") //é uma ferramenta para criar rotas e manipular diferentes tipos de requisições
+@CrossOrigin(origins = "*", allowedHeaders = "*") // O CORS é um mecanismo de segurança do navegador que restringe as requisições HTTP
 public class ProdutoController {
 	
-	@Autowired
+	@Autowired // é usada para realizar a injeção de dependências automaticamente.
 	private ProdutoRepository produtoRepository;
 	
-	@Autowired
+	@Autowired // é usada para realizar a injeção de dependências automaticamente.
 	private CategoriaRepository categoriaRepository;
 	
-	@GetMapping
+	@GetMapping // é utilizada quando você deseja criar um endpoint que retorna dados, sem modificar o estado do servidor.
 	public ResponseEntity<List<Produto>> getAll(){
 		return ResponseEntity.ok(produtoRepository.findAll());
 	}
@@ -52,7 +52,7 @@ public class ProdutoController {
 		return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
 	}
 
-	@PostMapping
+	@PostMapping // é uma anotação para definir endpoints que lidam com requisições HTTP POST
 	public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto){
 		if (categoriaRepository.existsById(produto.getCategoria().getId()))
 		return ResponseEntity.status(HttpStatus.CREATED)
@@ -61,7 +61,7 @@ public class ProdutoController {
 		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria não existe!", null);
 	}
 	
-	@PutMapping
+	@PutMapping // é geralmente utilizada quando você deseja criar um endpoint que atualiza um recurso existente.
 	public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto){
 		if(produtoRepository.existsById(produto.getId())){
 			
@@ -74,8 +74,8 @@ public class ProdutoController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT) //é usada para definir o código de status HTTP que deve ser retornado por um método de um controlador ou uma exceção. 
+	@DeleteMapping("/{id}") //é uma forma de mapear requisições HTTP do tipo DELETE para um método específico de um controlador.
 	public void delete(@PathVariable Long id) {
 		Optional<Produto> produto = produtoRepository.findById(id);
 		
