@@ -50,7 +50,7 @@ public class CategoriaController {
             .findAllByNomeContainingIgnoreCase(nome));
     }
 	
-	@PostMapping
+	@PostMapping // é uma anotação para definir endpoints que lidam com requisições HTTP POST
     public ResponseEntity<Categoria> post(@Valid @RequestBody Categoria categoria){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(categoriaRepository.save(categoria));
