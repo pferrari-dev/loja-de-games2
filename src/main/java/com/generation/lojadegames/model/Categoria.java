@@ -15,12 +15,12 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-@Entity
+@Entity //permite mapear classes Java para tabelas em um banco de dados.
 @Table(name = "tb_categoria")
 public class Categoria {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //gerencia a geração automática de chaves primárias em entidades JPA
 	private Long id;
 	
 	@NotBlank(message = "O atributo Nome é obrigatório e não pode estar vazio")
@@ -31,8 +31,8 @@ public class Categoria {
 	@Size(min = 4, max = 1000, message = "O campo descrição precisa ter entre 4 e 50 caracteres")
 	private String descricao;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("categoria")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria", cascade = CascadeType.REMOVE) // é utilizada para definir um relacionamento de um-para-muitos entre entidades.
+	@JsonIgnoreProperties("categoria")  //é uma ferramenta útil para controlar a inclusão e exclusão de propriedades durante a serialização e deserialização de JSON com Jackson. Ela oferece flexibilidade para trabalhar com dados JSON e pode ajudar a manter a segurança e a integridade dos dados em sua aplicação.
 	private List<Produto> produto;
 
 	public Long getId() {
