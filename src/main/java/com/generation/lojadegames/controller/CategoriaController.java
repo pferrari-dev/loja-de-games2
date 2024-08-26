@@ -31,7 +31,7 @@ public class CategoriaController {
 	@Autowired // é usada para realizar a injeção de dependências automaticamente.
 	private CategoriaRepository categoriaRepository;
 	
-	@GetMapping
+	@GetMapping // é utilizada quando você deseja criar um endpoint que retorna dados, sem modificar o estado do servidor.
 	public ResponseEntity<List<Categoria>> getAll(){
 		return ResponseEntity.ok(categoriaRepository.findAll());
 	}
